@@ -7,6 +7,24 @@ push 'A'
 push 'B'
 push 'C'
 
+; tug test,bp address is 0x8000 ,I mov 'T' into this address,otherwise it is null ,it wont work
+;mov al,'T'
+;mov [0x8000],al
+
+; adress 0x8000 data is 'T'
+;mov al, [0x8000]
+;int 0x10
+
+; after push ,stack data storage like this
+;	...
+;	0x8002.......
+;	0x8000-->bp
+;	0x7FFE-->'A'
+;	0x7FFC-->'B'
+;	0x7FFA-->'C' -->sp
+;	0x7FF8.......
+;	...
+
 ; to show how the stack grows downwards
 mov al, [0x7ffe] ; 0x8000 - 2
 int 0x10
@@ -35,6 +53,8 @@ int 0x10 ; prints A
 ; data that has been pop'd from the stack is garbage now
 mov al, [0x8000]
 int 0x10
+
+;stack pop end
 
 
 jmp $
